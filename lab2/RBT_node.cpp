@@ -1,7 +1,7 @@
 #include "RBT_node.h"
 
 
-TItem TRBT_node::getdata() const {
+TItem TRBT_node::GetData() const {
     return data;
 }
 

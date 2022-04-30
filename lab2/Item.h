@@ -5,16 +5,18 @@
 
 class TItem{
     friend class TRBT;
+    friend class BST;
 private:
     std::string key;
     unsigned long long value;
 
 public:
     TItem(): key(""), value(0) {}
-    std::string& getkey()  {
+    TItem(std::string key_, unsigned long long value_): key(key_), value(value_) {}
+    std::string& GetKey()  {
         return key;
     }
-    unsigned long long getvalue() const{
+    unsigned long long GetValue() const{
         return value;
     }
 

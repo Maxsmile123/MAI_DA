@@ -15,6 +15,7 @@ private:
     TPocket(): color('#'), value(0), key("g") {};
     TPocket(char color_, unsigned long long value_, std::string& key_):
     color(color_), value(value_), key(key_) {};
+
     friend std::istream& operator>>(std::istream& is,  TPocket& object){
         is >> object.color >> object.value >> object.key;
         return is;

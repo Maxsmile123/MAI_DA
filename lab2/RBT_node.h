@@ -13,7 +13,7 @@ public:
     TItem data;
 
     TRBT_node(TRBT_node* parent, TRBT_node* left, TRBT_node* right, bool color, TItem& data);
-    TItem getdata() const;
+    TItem GetData() const;
 
 
 

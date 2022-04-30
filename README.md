@@ -1,2 +1,2 @@
-# MAI_DA
-Discrete analysis
+# Дискран
+

@@ -19,16 +19,16 @@ int main()
     while (std::cin >> cmd) {
         if (!strcmp(cmd, "+")) {
             std::cin >> data;
-            tree->insert(tree->getroot(), data);
+            tree->Insert(tree->GetRoot(), data);
         }
         else if (!strcmp(cmd, "-")) {
             std::cin >> key;
-            TRBT_node *need_to_delete = tree->search(tree->getroot(), key);
+            TRBT_node *need_to_delete = tree->Search(tree->GetRoot(), key);
             if (need_to_delete == nullptr) {
                 std::cout << "NoSuchWord" << std::endl;
             }
             else {
-                tree->remove(need_to_delete);
+                tree->Remove(need_to_delete);
             }
         }
         else if (!strcmp(cmd, "!")) {
@@ -38,16 +38,16 @@ int main()
 
                 fout.open(cmd,  std::ios::out | std::ios::binary | std::ios::trunc);
 
-                tree->serialize(tree->getroot(), fout);
+                tree->Serialize(tree->GetRoot(), fout);
                 fout.close();
                 std::cout << "OK" << std::endl;
             }
             else if (!strcmp(cmd, "Load")) {
                 std::cin >> cmd;
                 fin.open(cmd, std::ios::in | std::ios::binary);
-                tree->clear(tree->getroot());
+                tree->Clear(tree->GetRoot());
                 TRBT_node* root = nullptr;
-                root = TRBT::deserialize(root, fin);
+                root = TRBT::Deserialize(root, fin);
                 tree = new TRBT(root);
                 fin.close();
                 std::cout << "OK" << std::endl;
@@ -55,17 +55,12 @@ int main()
         }
         else {
             key = cmd;
-            TRBT_node *temp = tree->search(tree->getroot(), key);
+            TRBT_node *temp = tree->Search(tree->GetRoot(), key);
             if (temp == nullptr) std::cout << "NoSuchWord" << std::endl;
-            else std::cout << "OK: " << temp->data.getvalue() << std::endl;
+            else std::cout << "OK: " << temp->data.GetValue() << std::endl;
         }
 
     }
 
-
-//
-//    unsigned long long a = 18446744073709551615;
-//
-//    std::cout << a -1;
     return 0;
 }
