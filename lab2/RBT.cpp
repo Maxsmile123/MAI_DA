@@ -17,7 +17,6 @@ int TRBT::Comparator(const std::string& a, const std::string& b){
     } else return 0;
 }
 
-TRBT::TRBT(TRBT_node* root_): root(root_) {}
 
 
 TRBT_node* TRBT::Search(TRBT_node* node, const std::string& key){
@@ -31,9 +30,7 @@ TRBT_node* TRBT::Search(TRBT_node* node, const std::string& key){
     }
 }
 
-TRBT_node* TRBT::GetRoot() const {
-    return root;
-}
+
 
 TRBT_node* TRBT::Insert(TRBT_node* node, TItem& data){
     if (root == nullptr){
@@ -83,7 +80,6 @@ void TRBT::Serialize(TRBT_node* node, std::ofstream &file) {
 TRBT_node* TRBT::Deserialize(TRBT_node *node, std::ifstream &file){
     TPocket toread;
     TItem data;
-    TRBT_node* temp;
 
     file >> toread;
     if (toread.color != '#'){
@@ -94,11 +90,9 @@ TRBT_node* TRBT::Deserialize(TRBT_node *node, std::ifstream &file){
         } else{
             node = new TRBT_node(nullptr, nullptr, nullptr, true, data);
         }
-        temp = Deserialize(node->left, file);
-        node->left = temp ;
+        node->left = Deserialize(node->left, file);
         if (node->left) node->left->parent = node;
-        temp = Deserialize(node->right, file);
-        node->right = temp;
+        node->right = Deserialize(node->right, file);
         if (node->right) node->right->parent = node;
         return node;
     }
@@ -195,10 +189,6 @@ TRBT_node* TRBT::Remove(TRBT_node* node){
     }
 
     return root;
-}
-
-TRBT::~TRBT(){
-    this->Clear(root);
 }
 
 
@@ -364,3 +354,4 @@ void TRBT::Clear(TRBT_node *node){
     Clear(node->right);
     delete node;
 }
+

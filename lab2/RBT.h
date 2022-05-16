@@ -10,7 +10,7 @@
 
 
 class TRBT{
-private:
+public:
     TRBT_node* root = nullptr;
 
 protected:
@@ -28,15 +28,12 @@ protected:
 
 public:
     TRBT() = default;
-    TRBT(TRBT_node* root_);
     TRBT_node* Insert(TRBT_node* node, TItem& data);
     TRBT_node* Remove(TRBT_node* node);
     TRBT_node* Search(TRBT_node* node, const std::string& key);
-    TRBT_node* GetRoot() const;
     void Serialize(TRBT_node* node, std::ofstream &file);
     static TRBT_node* Deserialize(TRBT_node *node, std::ifstream &file);
-    void Clear(TRBT_node *node);
-    ~TRBT();
+    static void Clear(TRBT_node *node);
 
 
 

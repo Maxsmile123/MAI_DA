@@ -12,7 +12,6 @@ private:
 
 public:
     TItem(): key(""), value(0) {}
-    TItem(std::string key_, unsigned long long value_): key(key_), value(value_) {}
     std::string& GetKey()  {
         return key;
     }

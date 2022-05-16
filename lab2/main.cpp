@@ -12,18 +12,19 @@ int main()
     std::ios_base::sync_with_stdio(false);
     std::cin.tie(nullptr);
     std::cout.tie(nullptr);
-    TRBT *tree = new TRBT();
+
     char cmd[KEY_VALUE + 1];
     std::string key;
+    TRBT *tree = new TRBT();
     TItem data;
     while (std::cin >> cmd) {
         if (!strcmp(cmd, "+")) {
             std::cin >> data;
-            tree->Insert(tree->GetRoot(), data);
+            tree->Insert(tree->root, data);
         }
         else if (!strcmp(cmd, "-")) {
             std::cin >> key;
-            TRBT_node *need_to_delete = tree->Search(tree->GetRoot(), key);
+            TRBT_node *need_to_delete = tree->Search(tree->root, key);
             if (need_to_delete == nullptr) {
                 std::cout << "NoSuchWord" << std::endl;
             }
@@ -38,29 +39,32 @@ int main()
 
                 fout.open(cmd,  std::ios::out | std::ios::binary | std::ios::trunc);
 
-                tree->Serialize(tree->GetRoot(), fout);
+                tree->Serialize(tree->root, fout);
                 fout.close();
                 std::cout << "OK" << std::endl;
             }
             else if (!strcmp(cmd, "Load")) {
                 std::cin >> cmd;
                 fin.open(cmd, std::ios::in | std::ios::binary);
-                tree->Clear(tree->GetRoot());
-                TRBT_node* root = nullptr;
-                root = TRBT::Deserialize(root, fin);
-                tree = new TRBT(root);
+                TRBT::Clear(tree->root);
+                tree->root = TRBT::Deserialize(tree->root, fin);
                 fin.close();
                 std::cout << "OK" << std::endl;
             }
         }
+        else if (!strcmp(cmd, "`")) {
+            TRBT::Clear(tree->root);
+            delete tree;
+            return 0;
+        }
         else {
             key = cmd;
-            TRBT_node *temp = tree->Search(tree->GetRoot(), key);
+            TRBT_node *temp = tree->Search(tree->root, key);
             if (temp == nullptr) std::cout << "NoSuchWord" << std::endl;
             else std::cout << "OK: " << temp->data.GetValue() << std::endl;
         }
 
     }
-
+    delete tree;
     return 0;
 }
