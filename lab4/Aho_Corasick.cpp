@@ -101,6 +101,14 @@ void TAho_Corasick::link(TTrie* node){
     }
 }
 
+void TAho_Corasick::bypass_output_links(TTrie* node, int counter, int string_number){
+    while(node->output_link){
+        std::cout << string_number << ", " << counter - node->output_link->pattern_len << ", " << node->output_link->is_end << std::endl;
+        counter -= node->pattern_len - node->output_link->pattern_len;
+        node = node->output_link;
+    }
+}
+
 TTrie* TAho_Corasick::go(TTrie* node, std::string& letter){
     for (auto child: node->next){
         if (child->letter == letter){
@@ -136,7 +144,7 @@ void TAho_Corasick::Search(TTrie* root, const std::string& text, int string_numb
                     stop = false;
                     if (it->output_link) {
                         //std::cout << "[ol]:";
-                        std::cout << string_number << ", " << count_spaces - it->output_link->pattern_len << ", " << it->output_link->is_end << std::endl;
+                        bypass_output_links(it, count_spaces, string_number);
                     }
                     if(it->is_end){
                         //std::cout << "[end]:";
@@ -150,14 +158,14 @@ void TAho_Corasick::Search(TTrie* root, const std::string& text, int string_numb
                     break;
                 }
                 it = it->fail_link;
-                if (it->output_link) {
-                    std::cout << "[ol]:";
-                    std::cout << string_number << ", " << count_spaces - it->output_link->pattern_len << ", " << it->output_link->is_end << std::endl;
-                }
-                if(it->is_end){
-                    std::cout << "[end]:";
-                    std::cout << string_number << ", " << count_spaces - it->pattern_len << ", " << it->is_end << std::endl;
-                }
+//                if (it->output_link) {
+//                    // std::cout << "[ol]:";
+//                    bypass_output_links(it, count_spaces, string_number);
+//                }
+//                if(it->is_end){
+//                    // std::cout << "[end]:";
+//                    std::cout << string_number << ", " << count_spaces - it->pattern_len << ", " << it->is_end << std::endl;
+//                }
             }
         } while (stop);
 

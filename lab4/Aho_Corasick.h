@@ -12,6 +12,7 @@ private:
     static bool check(char letter);
     static void link(TTrie* node);
     static TTrie* go(TTrie* node, std::string& c);
+    static void bypass_output_links(TTrie* node, int counter, int string_number);
 
 public:
     static std::string process(const std::string& text);
