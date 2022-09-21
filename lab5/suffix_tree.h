@@ -25,7 +25,6 @@ private:
     int activeLength = 0;
     int remainingSuffixCount = 0;
     int leafEnd = -1;
-
 };
 
 
