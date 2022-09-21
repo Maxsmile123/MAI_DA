@@ -1,6 +1,6 @@
 #include "suffix_tree.h"
 
-TSuffix_tree::TSuffix_tree(std::string_view &str)
+TSuffix_tree::TSuffix_tree(std::string &str)
     : text(str)
 {
     BuildSuffixTree();
@@ -88,15 +88,5 @@ void TSuffix_tree::ExtendSuffixTree(int phase)
     }
 }
 
-void TSuffix_tree::CountIndex(const std::shared_ptr<TNode> &node, std::vector<int> &vec)
-{
-    if (!node) {
-        return;
-    }
-    for (const auto &it: node->children) {
-        CountIndex(it.second, vec);
-    }
-    if (node->suffix_index != -1) {
-        vec.push_back(node->suffix_index);
-    }
-}
+
+

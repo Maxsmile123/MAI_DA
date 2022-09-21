@@ -13,7 +13,7 @@ class TNode
 {
 public:
     friend class TSuffix_tree;
-
+    friend class TSuffix_array;
     TNode(std::shared_ptr<TNode> link, int start, int *end)
         : TNode(std::move(link), start, end, -1)
     {}
