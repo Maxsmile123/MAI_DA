@@ -7,8 +7,8 @@ int main()
 {
     std::string input_text;
     std::cin >> input_text;
-    input_text.push_back(96);
     TSuffix_array array(input_text);
+    input_text.push_back('a' - 1); // сентинел - лексикографически наименьший символ алфавита
     unsigned int count = 0;
     {
         TSuffix_tree tree(input_text);
@@ -16,8 +16,7 @@ int main()
     }
     while (std::cin >> input_text) {
         ++count;
-        std::cout << count << ": ";
-        array.Find(input_text);
+        array.Find(input_text, count);
     }
-
+    return 0;
 }

@@ -4,14 +4,14 @@
 #include "suffix_node.h"
 #include "suffix_array.h"
 
-#include <string_view>
+#include <string>
 #include <vector>
 
 
 class TSuffix_tree
 {
 public:
-    TSuffix_tree(std::string &text); // Не забудь в main при чтении добавить сентинел в конец строки!
+    TSuffix_tree(std::string &text);
     void BuildSuffixTree();
     std::shared_ptr<TNode> get_root()
     {
