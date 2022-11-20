@@ -6,6 +6,7 @@
 
 #include <string>
 #include <vector>
+#include <iostream>
 
 
 class TSuffix_tree
@@ -15,8 +16,9 @@ public:
     void BuildSuffixTree();
     std::shared_ptr<TNode> get_root()
     {
-        return root;
+        return this->root;
     }
+
 
 private:
     void ExtendSuffixTree(int pos);

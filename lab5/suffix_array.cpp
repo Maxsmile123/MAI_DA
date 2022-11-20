@@ -46,14 +46,14 @@ void TSuffix_array::Find(const std::string &pattern, unsigned int count)
         answer.push_back(array[k]);
     }
     std::sort(answer.begin(), answer.end());
-    std::cout << count << ": ";
+    //std::cout << count << ": ";
     for (auto k = 0; k < answer.size(); ++k) {
-        std::cout << answer[k];
+        //std::cout << answer[k];
         if (k != answer.size() - 1) {
-            std::cout << ", ";
+            //std::cout << ", ";
         }
     }
-    std::cout << std::endl;
+    //std::cout << std::endl;
 
 }
 
