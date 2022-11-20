@@ -1,9 +1,9 @@
 #include "Graph.h"
 
 
-int Graph::Ford_Fulkerson()
+unsigned int Graph::Ford_Fulkerson()
 {
-    int result_flow = 0;
+    unsigned int result_flow = 0;
     Edge min_edge;
     unsigned int min_flow = INT_MAX;
     while (true) {
