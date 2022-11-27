@@ -4,25 +4,21 @@
 unsigned int Graph::Ford_Fulkerson()
 {
     unsigned int result_flow = 0;
-    Edge min_edge;
+    auto min_edge = std::make_shared<Edge>();
     unsigned int min_flow = INT_MAX;
-    while (true) {
-        min_flow = INT_MAX;
-        if (!BFS(&min_edge, nodes.size(), &min_flow)) {
-            break;
-        }
-
-        std::list<Edge *> path = recover_path(&min_edge);
+    while (BFS(min_edge, nodes.size(), &min_flow)) {
+        auto path = recover_path(min_edge);
 
         for (auto &edge: path) {
             edge->flow += min_flow;
         }
         result_flow += min_flow;
+        min_flow = INT_MAX;
     }
     return result_flow;
 }
 
-bool Graph::BFS(Edge *min_edge, size_t n, unsigned int *min_flow)
+bool Graph::BFS(std::shared_ptr<Edge> &min_edge, size_t n, unsigned int *min_flow)
 {
     std::queue<Node> queue;
     queue.push(nodes[1]);
@@ -32,7 +28,7 @@ bool Graph::BFS(Edge *min_edge, size_t n, unsigned int *min_flow)
     while (!queue.empty()) {
         auto v = queue.front();
         queue.pop();
-        for (auto edge: v.neighbors) {
+        for (const auto &edge: v.neighbors) {
             if (!visited[edge->to] && (edge->flow_capacity - edge->flow) > 0) {
                 if (*min_flow > (edge->flow_capacity - edge->flow)) {
                     *min_flow = edge->flow_capacity - edge->flow;
@@ -47,7 +43,7 @@ bool Graph::BFS(Edge *min_edge, size_t n, unsigned int *min_flow)
     return visited[n - 1];
 }
 
-bool Graph::BFS(std::list<Edge *> *path, size_t start, size_t dest)
+bool Graph::BFS(std::list<std::shared_ptr<Edge>> *path, size_t start, size_t dest)
 {
     if (start == dest) return true;
     std::queue<Node> queue;
@@ -59,7 +55,7 @@ bool Graph::BFS(std::list<Edge *> *path, size_t start, size_t dest)
     while (!queue.empty()) {
         auto v = queue.front();
         queue.pop();
-        for (auto edge: v.neighbors) {
+        for (const auto &edge: v.neighbors) {
             if (edge->to == dest) {
                 (*path).push_back(edge);
                 return true;
@@ -74,10 +70,10 @@ bool Graph::BFS(std::list<Edge *> *path, size_t start, size_t dest)
     return false;
 }
 
-std::list<Graph::Edge *> Graph::recover_path(Graph::Edge *edge)
+std::list<std::shared_ptr<Graph::Edge>> Graph::recover_path(const std::shared_ptr<Graph::Edge> &edge)
 {
-    std::list<Graph::Edge *> path;
-    std::list<Graph::Edge *> temp_list;
+    std::list<std::shared_ptr<Graph::Edge>> path;
+    std::list<std::shared_ptr<Graph::Edge>> temp_list;
     size_t start = 1;
     size_t end = this->nodes.size() - 1;
     if (!BFS(&path, start, edge->to)) {

@@ -22,34 +22,24 @@ public:
             :
             from(_from), to(_to), flow_capacity(_flow_capacity)
         {};
-        Edge(Edge &) = default;
     };
     struct Node
     {
-        std::vector<Edge *> neighbors;
+        std::vector<std::shared_ptr<Edge>> neighbors;
         Node() = default;
     };
     std::vector<Node> nodes; // number of node = index in this vector
 
 
     Graph() = default;
-    Graph(size_t n)
+    explicit Graph(size_t n)
         : nodes(n + 1)
     {};
     unsigned int Ford_Fulkerson();
-    bool BFS(Edge *edge, size_t n, unsigned int *min_flow);
-    std::list<Edge *> recover_path(Edge *edge);
+    bool BFS(std::shared_ptr<Edge> &edge, size_t n, unsigned int *min_flow);
+    bool BFS(std::list<std::shared_ptr<Edge>> *path, size_t start, size_t dest);
+    std::list<std::shared_ptr<Edge>> recover_path(const std::shared_ptr<Edge> &edge);
 
-    ~Graph()
-    {
-        for (auto &node: this->nodes) {
-            for (auto edge: node.neighbors) {
-                delete edge;
-            }
-        }
-    };
-
-    bool BFS(std::list<Edge *> *path, size_t start, size_t dest);
 };
 
 

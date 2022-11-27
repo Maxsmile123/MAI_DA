@@ -1,5 +1,4 @@
 #include <iostream>
-#include <list>
 
 #include "Graph.h"
 
@@ -12,7 +11,7 @@ int main()
     int from, to, flow;
     for (size_t i = 0; i < m; ++i) {
         std::cin >> from >> to >> flow;
-        graph.nodes[from].neighbors.push_back(new Graph::Edge(from, to, flow));
+        graph.nodes[from].neighbors.push_back(std::make_shared<Graph::Edge>(from, to, flow));
     }
     std::cout << graph.Ford_Fulkerson();
 
