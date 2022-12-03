@@ -2,7 +2,7 @@
 
 **Lab1** - Bucket Sort </br>
 **Lab2** - RB Tree </br>
-**Lab3** - no variant
+**Lab3** - no variant   
 **Lab4** - Aho-Korasik + Z-blocks </br>
 **Lab5** - Suffix array </br>
 **Lab6** - Was optional lab </br>
