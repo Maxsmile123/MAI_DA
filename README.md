@@ -9,6 +9,7 @@
 **Lab7** - 4 </br>
 **Lab8** - 1 </br>
 **Lab9** - Ford-Fulkerson </br>
+**KP** - Nearest neighbors </br>
 
 
 
