@@ -1,4 +1,4 @@
-#include "k_d_tree.hpp"
+#include "KDTree/k_d_tree.hpp"
 
 int main()
 {

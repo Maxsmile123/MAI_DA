@@ -2,7 +2,7 @@
 #define METRICS_HPP
 
 #include <cmath>
-#include "point.hpp"
+#include "../point.hpp"
 
 class Metrics
 {

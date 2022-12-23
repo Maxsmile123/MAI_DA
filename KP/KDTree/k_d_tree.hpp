@@ -1,8 +1,8 @@
 #ifndef KDTREE_HPP
 #define KDTREE_HPP
 
-#include "point.hpp"
-#include "metrics.hpp"
+#include "../point.hpp"
+#include "../Metrics/metrics.hpp"
 #include <memory>
 #include <functional>
 
