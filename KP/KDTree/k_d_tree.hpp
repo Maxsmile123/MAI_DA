@@ -4,6 +4,7 @@
 #include "../point.hpp"
 #include "../Metrics/metrics.hpp"
 #include <memory>
+#include <limits>
 #include <functional>
 
 class KDTree

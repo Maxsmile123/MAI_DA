@@ -10,15 +10,26 @@ void KDTree::DFS(std::unique_ptr<Node> &node, Point *cur_nearest_point, Point &r
     if (node == nullptr) {
         return;
     }
-
-    if (node->left && distance(node->left->point, request) < *min_dist) {
+    double dist_to_left = std::numeric_limits<double>::max();
+    double dist_to_right = std::numeric_limits<double>::max();
+    if (node->left) {
+        dist_to_left = distance(node->left->point, request);
+    }
+    if (node->right) {
+        dist_to_right = distance(node->right->point, request);
+    }
+    if (dist_to_left < *min_dist) {
         *cur_nearest_point = node->left->point;
         *min_dist = distance(node->left->point, request);
-        DFS(node->left, cur_nearest_point, request, min_dist);
     }
-    if (node->right && distance(node->right->point, request) < *min_dist) {
+    if (dist_to_right < *min_dist) {
         *cur_nearest_point = node->right->point;
         *min_dist = distance(node->right->point, request);
+    }
+    if (dist_to_left < dist_to_right) {
+        DFS(node->left, cur_nearest_point, request, min_dist);
+    }
+    else {
         DFS(node->right, cur_nearest_point, request, min_dist);
     }
 
