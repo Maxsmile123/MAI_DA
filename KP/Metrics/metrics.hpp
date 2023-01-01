@@ -16,7 +16,7 @@ public:
         }
         double sum = 0;
         for (size_t i = 0; i < a.point.size(); ++i) {
-            sum += pow((a.point[i] - b.point[i]), 2);
+            sum += pow(a.point[i] - b.point[i], 2);
         }
         return sqrt(sum);
     };

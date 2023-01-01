@@ -5,32 +5,33 @@ KDTree::KDTree(std::function<double(Point &, Point &)> _metric)
     distance(std::move(_metric))
 {}
 
-void KDTree::DFS(std::unique_ptr<Node> &node, Point *cur_nearest_point, Point &request, double *min_dist)
+void KDTree::DFS(std::unique_ptr<Node> &node,
+                 Point *cur_nearest_point,
+                 unsigned int depth,
+                 Point &request,
+                 double *min_dist)
 {
     if (node == nullptr) {
         return;
     }
-    double dist_to_left = std::numeric_limits<double>::max();
-    double dist_to_right = std::numeric_limits<double>::max();
-    if (node->left) {
-        dist_to_left = distance(node->left->point, request);
+    auto dist_to_node = distance(node->point, request);
+    if (dist_to_node < *min_dist) {
+        *cur_nearest_point = node->point;
+        *min_dist = dist_to_node;
     }
-    if (node->right) {
-        dist_to_right = distance(node->right->point, request);
-    }
-    if (dist_to_left < *min_dist) {
-        *cur_nearest_point = node->left->point;
-        *min_dist = distance(node->left->point, request);
-    }
-    if (dist_to_right < *min_dist) {
-        *cur_nearest_point = node->right->point;
-        *min_dist = distance(node->right->point, request);
-    }
-    if (dist_to_left < dist_to_right) {
-        DFS(node->left, cur_nearest_point, request, min_dist);
+    auto cur_dim = depth % node->point.point.size();
+    double diff = fabs(node->point.point[cur_dim] - request.point[cur_dim]);
+    if (node->point.point[cur_dim] > request.point[cur_dim]) {
+        DFS(node->left, cur_nearest_point, depth + 1, request, min_dist);
+        if (diff < *min_dist) {
+            DFS(node->right, cur_nearest_point, depth + 1, request, min_dist);
+        }
     }
     else {
-        DFS(node->right, cur_nearest_point, request, min_dist);
+        DFS(node->right, cur_nearest_point, depth + 1, request, min_dist);
+        if (diff < *min_dist) {
+            DFS(node->left, cur_nearest_point, depth + 1, request, min_dist);
+        }
     }
 
 }
@@ -62,9 +63,9 @@ void KDTree::insert(Point &request)
 
 size_t KDTree::search_nearest_neighbor(Point &request)
 {
-    auto dist = distance(request, root->point);
-    Point nearest_point = root->point;
-    DFS(root, &nearest_point, request, &dist);
+    double dist = std::numeric_limits<double>::max();
+    Point nearest_point;
+    DFS(root, &nearest_point, 0, request, &dist);
     return nearest_point.id;
 }
 

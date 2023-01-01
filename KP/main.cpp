@@ -3,7 +3,7 @@
 int main()
 {
     size_t n, dim, q;
-    double temp;
+    long double temp;
     std::cin >> n >> dim;
     KDTree tree;
     if (dim <= 200) {

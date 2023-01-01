@@ -30,7 +30,7 @@ public:
     void insert(std::unique_ptr<Node> &, Point &, unsigned int);
     void insert(Point &);
     size_t search_nearest_neighbor(Point &);
-    void DFS(std::unique_ptr<Node> &node, Point *cur_nearest_point, Point &request, double *min_dist);
+    void DFS(std::unique_ptr<Node> &node, Point *cur_nearest_point, unsigned int, Point &request, double *min_dist);
 
 };
 
