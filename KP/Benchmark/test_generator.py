@@ -1,7 +1,7 @@
 import os
 from random import *
 
-tests_dir = "Tests"
+tests_dir = "../Tests"
 template = 'test{}'
 hm = '{test}'
 
